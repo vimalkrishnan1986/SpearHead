@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SpearHead.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SpearHead.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/Services/ExcelUploadService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost/Services/ExcelUploadService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/Services/ExcelUploadService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:complexType name="ExcelUploadModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Content" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExcelUploadModel" nillable="true" type="tns:ExcelUploadModel" />
+  <xs:complexType name="ExcelUploadResponseModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HttpStatusCode" type="tns:StatusCodes" />
+      <xs:element minOccurs="0" name="ErrorMessages" nillable="true" type="tns:ArrayOfErrorMessageModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExcelUploadResponseModel" nillable="true" type="tns:ExcelUploadResponseModel" />
+  <xs:simpleType name="StatusCodes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Sucess">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Error">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="BadRequest">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="StatusCodes" nillable="true" type="tns:StatusCodes" />
+  <xs:complexType name="ArrayOfErrorMessageModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorMessageModel" nillable="true" type="tns:ErrorMessageModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfErrorMessageModel" nillable="true" type="tns:ArrayOfErrorMessageModel" />
+  <xs:complexType name="ErrorMessageModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Row" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ErrorMessagees" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ErrorMessageModel" nillable="true" type="tns:ErrorMessageModel" />
+  <xs:complexType name="FaultModel">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Exception" nillable="true" type="q2:Exception" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FaultModel" nillable="true" type="tns:FaultModel" />
+</xs:schema>
