@@ -28,8 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.BrowseButton = new System.Windows.Forms.Button();
+            this.ErrorListView = new System.Windows.Forms.DataGridView();
+            this.DisplaySource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorListView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplaySource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -51,15 +56,33 @@
             this.BrowseButton.UseVisualStyleBackColor = true;
             this.BrowseButton.Click += new System.EventHandler(this.BrowseButton_Click);
             // 
+            // ErrorListView
+            // 
+            this.ErrorListView.AllowUserToAddRows = false;
+            this.ErrorListView.AllowUserToDeleteRows = false;
+            this.ErrorListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ErrorListView.Location = new System.Drawing.Point(316, 192);
+            this.ErrorListView.Name = "ErrorListView";
+            this.ErrorListView.ReadOnly = true;
+            this.ErrorListView.Size = new System.Drawing.Size(240, 150);
+            this.ErrorListView.TabIndex = 2;
+            // 
+            // DisplaySource
+            // 
+            this.DisplaySource.AllowNew = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ErrorListView);
             this.Controls.Add(this.BrowseButton);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorListView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DisplaySource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,6 +92,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BrowseButton;
+        private System.Windows.Forms.DataGridView ErrorListView;
+        private System.Windows.Forms.BindingSource DisplaySource;
     }
 }
 

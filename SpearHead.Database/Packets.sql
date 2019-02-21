@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Packets]
+(
+	[PacketId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [PacketCode] NVARCHAR(50) NULL
+)

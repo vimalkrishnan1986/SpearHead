@@ -10,7 +10,6 @@ namespace SpearHead.Host
     class Program
     {
         const string consoleCommand = "-console";
-
         static void Main(string[] args)
         {
             if (args.Contains(consoleCommand))

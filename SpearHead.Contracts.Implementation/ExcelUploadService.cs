@@ -24,7 +24,7 @@ namespace SpearHead.Contracts.Implementation
             _excelReader = Activator.CreateInstance<OleDbExcelReader>();
             _storageRepository = Activator.CreateInstance<FileRepository>();
             _storageRepository.Configure(ConfigHelper.GetAppSettingValue<string>(_baseLocationKey));
-            _businessService = new UploadBusinessService(_storageRepository, _excelReader);
+            _businessService = new UploadBusinessService(_storageRepository, _excelReader,null);
         }
 
         public async Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model)

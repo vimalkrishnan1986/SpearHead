@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[ProductDetails]
+(
+	[ProductDetailId] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [PacketId] UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Packets(PacketId),
+    [ProductId] UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Products(ProductId) , 
+    [Weight] DECIMAL NULL, 
+    [Colur] NCHAR(10) NULL
+)

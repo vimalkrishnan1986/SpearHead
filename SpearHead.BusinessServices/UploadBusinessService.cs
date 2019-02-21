@@ -6,10 +6,14 @@ using SpearHead.Common.ExcelReader;
 using SpearHead.Common.Helpers;
 using SpearHead.BusinessServices.Repositories;
 using SpearHead.DataContracts;
-using System.Reflection;
 using System.Data;
 using System.Net;
 using System.IO;
+using System.Linq;
+using SpearHead.BusinessServices.Models;
+using SpearHead.Data.Infrastructure;
+using SpearHead.Data.Entities;
+using SpearHead.Data.Repositories;
 
 namespace SpearHead.BusinessServices
 {
@@ -17,6 +21,7 @@ namespace SpearHead.BusinessServices
     {
         private readonly IStorageRepsitory _storageRepsitory;
         private readonly IExcelReader _excelReader;
+        private readonly IUnitOfWork _unitOfWork;
         const string app_data = "App_Data";
 
         private string GetTemperotyFileName()
@@ -32,10 +37,11 @@ namespace SpearHead.BusinessServices
 
         }
 
-        public UploadBusinessService(IStorageRepsitory storageRepsitory, IExcelReader excelReader)
+        public UploadBusinessService(IStorageRepsitory storageRepsitory, IExcelReader excelReader, IUnitOfWork unitOfWork)
         {
             _storageRepsitory = storageRepsitory ?? throw new ArgumentNullException(nameof(storageRepsitory));
             _excelReader = excelReader ?? throw new ArgumentNullException(nameof(excelReader));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
         }
 
@@ -70,6 +76,8 @@ namespace SpearHead.BusinessServices
         /// <returns></returns>
         private ExcelUploadResponseModel ApplyValidation(DataTable data)
         {
+            IRepository<Product> productRepository = new ProductRepository(_unitOfWork);
+            IRepository<Packet> packetRepsitory = new PacketRepository(_unitOfWork);
 
             List<ErrorMessageModel> errorMessageModels = new List<ErrorMessageModel>();
 
@@ -85,29 +93,64 @@ namespace SpearHead.BusinessServices
                 throw new IndexOutOfRangeException();
             }
 
+            var products = productRepository.GetAll();
+            var packets = packetRepsitory.GetAll();
+
+            var inputData = data.ToListof<InputDataModelV1>();
             int row = 0;
 
-            foreach (DataRow dataRow in data.Rows)
+            List<ProductDetail> productDetailsList = new List<ProductDetail>();
+
+            inputData.RemoveAll((inputModel) =>
+        {
+            bool canDelete = false;
+            var errorMessageModel = new ErrorMessageModel(row);
+            var packet = packets.FirstOrDefault(p => p.PacketCode.Equals(inputModel.Packet, StringComparison.InvariantCultureIgnoreCase));
+            if (packet == null)
             {
-                bool isPassed = true;
-                var errorMessageModel = new ErrorMessageModel(row);
+                errorMessageModel.ErrorMessagees.Add($" Row {row}, packet code {inputModel.Packet} does not exists");
+                canDelete = true;
+            }
+            var product = products.FirstOrDefault(p => p.ProductCode.Equals(inputModel.Product, StringComparison.InvariantCultureIgnoreCase));
+            if (product == null)
+            {
+                errorMessageModel.ErrorMessagees.Add($" Row {row}, product code {inputModel.Packet} does not exists");
+                canDelete = true;
+            }
 
-                if (dataRow[0].ToString() != "vimal")
-                {
-                    errorMessageModel.ErrorMessagees.Add("Coulm 0 should have value vimal");
-                    isPassed = false;
-                }
-
-                /// contine with other checks over here;
-                row++;
-                if (isPassed)
-                {
-                    continue;
-                }
+            row++;
+            if (canDelete)
+            {
                 errorMessageModels.Add(errorMessageModel);
+            }
+            else
+            {
+                productDetailsList.Add(new ProductDetail
+                {
+                    ProductId = product.ProductId,
+                    PacketId = packet.PacketId
+                    //add the other values over here
+                });
+            }
+
+            return canDelete;
+        });
+
+            if (productDetailsList.Count() == inputData.Count())
+            {
+                IRepository<ProductDetail> productDetailrepository = new ProductDetailRepository(_unitOfWork);
+
+                productDetailsList.ForEach(detaiils =>
+                {
+                    productDetailrepository.Insert(detaiils);
+                });
+                _unitOfWork.SaveChanges();
+                return new ExcelUploadResponseModel(null);
             }
 
             return new ExcelUploadResponseModel(errorMessageModels);
+            //save functionality here 
+
         }
     }
 }

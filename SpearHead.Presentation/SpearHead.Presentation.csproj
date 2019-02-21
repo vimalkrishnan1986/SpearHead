@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\ErrorDisplayModel.cs" />
     <Compile Include="UploadWindow.cs">
       <SubType>Form</SubType>
     </Compile>

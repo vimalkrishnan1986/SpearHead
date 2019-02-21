@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpearHead.Host", "SpearHead
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpearHead.Presentation", "SpearHead.Presentation\SpearHead.Presentation.csproj", "{27CA9A0A-5136-4D64-AC41-30665C7A0692}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SpearHead.Database", "SpearHead.Database\SpearHead.Database.sqlproj", "{70948C7D-6209-4A77-AF50-AE506C17DC65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpearHead.Data", "SpearHead.Data\SpearHead.Data.csproj", "{91CBCF44-8E0B-4DE0-8421-DC8519D7A2FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,16 @@ Global
 		{27CA9A0A-5136-4D64-AC41-30665C7A0692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27CA9A0A-5136-4D64-AC41-30665C7A0692}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27CA9A0A-5136-4D64-AC41-30665C7A0692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70948C7D-6209-4A77-AF50-AE506C17DC65}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{91CBCF44-8E0B-4DE0-8421-DC8519D7A2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91CBCF44-8E0B-4DE0-8421-DC8519D7A2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91CBCF44-8E0B-4DE0-8421-DC8519D7A2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91CBCF44-8E0B-4DE0-8421-DC8519D7A2FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

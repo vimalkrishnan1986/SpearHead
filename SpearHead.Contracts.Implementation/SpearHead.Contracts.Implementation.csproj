@@ -58,6 +58,10 @@
       <Project>{7589e088-95a9-4943-818c-8ba6c5ce60de}</Project>
       <Name>SpearHead.DataContracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SpearHead.Data\SpearHead.Data.csproj">
+      <Project>{91cbcf44-8e0b-4de0-8421-dc8519d7a2fc}</Project>
+      <Name>SpearHead.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpearHead.ServiceContracts\SpearHead.ServiceContracts.csproj">
       <Project>{454c28b5-922a-4bea-a199-dfbb46fdad0d}</Project>
       <Name>SpearHead.ServiceContracts</Name>
