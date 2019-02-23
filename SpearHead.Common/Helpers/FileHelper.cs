@@ -37,5 +37,15 @@ namespace SpearHead.Common.Helpers
 
             File.Delete(path);
         }
+
+        public static Byte[] ReadBytes(string location)
+        {
+            if (!File.Exists(location))
+            {
+                throw new InvalidOperationException("Invalid Location");
+            }
+
+            return File.ReadAllBytes(location);
+        }
     }
 }

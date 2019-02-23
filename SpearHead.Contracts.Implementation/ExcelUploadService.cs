@@ -8,6 +8,8 @@ using SpearHead.BusinessServices.Repositories;
 using SpearHead.Common.ExcelReader;
 using SpearHead.Common.Helpers;
 using SpearHead.DataContracts;
+using SpearHead.Data.Infrastructure;
+using SpearHead.Data.Entities;
 
 namespace SpearHead.Contracts.Implementation
 {
@@ -17,6 +19,7 @@ namespace SpearHead.Contracts.Implementation
         private readonly IUploadBusinessService _businessService;
         private readonly IExcelReader _excelReader;
         private readonly IStorageRepsitory _storageRepository;
+        private readonly IUnitOfWork _unitOfWork;
         const string _baseLocationKey = "storageLocation";
 
         public ExcelUploadService()
@@ -24,7 +27,9 @@ namespace SpearHead.Contracts.Implementation
             _excelReader = Activator.CreateInstance<OleDbExcelReader>();
             _storageRepository = Activator.CreateInstance<FileRepository>();
             _storageRepository.Configure(ConfigHelper.GetAppSettingValue<string>(_baseLocationKey));
-            _businessService = new UploadBusinessService(_storageRepository, _excelReader,null);
+            _unitOfWork = new UnitOfWork(new SchoolEntities());
+
+            _businessService = new UploadBusinessService(_storageRepository, _excelReader, _unitOfWork);
         }
 
         public async Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model)
