@@ -98,6 +98,7 @@ namespace SpearHead.BusinessServices
 
             var inputData = data.ToListof<InputDataModelV1>();
             int row = 0;
+            int count = inputData.Count();
 
             List<ProductDetail> productDetailsList = new List<ProductDetail>();
 
@@ -136,7 +137,7 @@ namespace SpearHead.BusinessServices
             return canDelete;
         });
 
-            if (productDetailsList.Count() == inputData.Count())
+            if (productDetailsList.Count() == count)
             {
                 IRepository<ProductDetail> productDetailrepository = new ProductDetailRepository(_unitOfWork);
 

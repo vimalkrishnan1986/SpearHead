@@ -34,7 +34,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -66,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="ServiceInstaller.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -86,6 +94,10 @@
     <ProjectReference Include="..\SpearHead.DataContracts\SpearHead.DataContracts.csproj">
       <Project>{7589e088-95a9-4943-818c-8ba6c5ce60de}</Project>
       <Name>SpearHead.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SpearHead.Data\SpearHead.Data.csproj">
+      <Project>{91cbcf44-8e0b-4de0-8421-dc8519d7a2fc}</Project>
+      <Name>SpearHead.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\SpearHead.ServiceContracts\SpearHead.ServiceContracts.csproj">
       <Project>{454c28b5-922a-4bea-a199-dfbb46fdad0d}</Project>

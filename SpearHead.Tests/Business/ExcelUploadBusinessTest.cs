@@ -12,6 +12,7 @@ using SpearHead.Common.Helpers;
 using SpearHead.Data.Entities;
 using SpearHead.DataContracts;
 using FluentAssertions;
+using System.Transactions;
 
 namespace SpearHead.Tests.Business
 {
@@ -46,9 +47,30 @@ namespace SpearHead.Tests.Business
                 Content = FileHelper.ReadBytes($"{baseLocation}//Sample Excel_valid.xlsx")
             };
 
+
             var res = await _uploadBusinessService.Upload(model);
             res.Should().NotBeNull();
             res.HttpStatusCode.Should().Be(StatusCodes.Sucess);
+
+
+        }
+
+        [TestMethod]
+        public async Task ExcelUploadBusinessTest_UploadFiles_Failure()
+        {
+
+            var model = new ExcelUploadModel()
+            {
+                Name = "test",
+                Content = FileHelper.ReadBytes($"{baseLocation}//Sample Excel_Invalid.xlsx")
+            };
+
+
+            var res = await _uploadBusinessService.Upload(model);
+            res.Should().NotBeNull();
+            res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
+            res.ErrorMessages.Count().Should().Be(2);
+
 
         }
     }
