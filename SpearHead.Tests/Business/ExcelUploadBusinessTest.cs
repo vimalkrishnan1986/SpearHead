@@ -9,10 +9,11 @@ using SpearHead.BusinessServices.Repositories;
 using SpearHead.Common.ExcelReader;
 using SpearHead.Data.Infrastructure;
 using SpearHead.Common.Helpers;
+using SpearHead.Common.Proxy;
 using SpearHead.Data.Entities;
 using SpearHead.DataContracts;
+
 using FluentAssertions;
-using System.Transactions;
 
 namespace SpearHead.Tests.Business
 {
@@ -22,18 +23,17 @@ namespace SpearHead.Tests.Business
         private const string baseLocation = "TestData";
         private string _baseLocationKey = "storageLocation";
         private IUploadBusinessService _uploadBusinessService;
-        private IStorageRepsitory _storageRepsitory;
+        private IFileStoreProxy _fileStoreProxy;
         private IExcelReader _excelReader;
         private IUnitOfWork _unitOfWork;
 
         [TestInitialize]
         public void Initialize()
         {
-            _storageRepsitory = new FileRepository();
-            _storageRepsitory.Configure(ConfigHelper.GetAppSettingValue<string>(_baseLocationKey));
+            _fileStoreProxy = new FileStoreProxy();
             _excelReader = new OleDbExcelReader();
             _unitOfWork = new UnitOfWork(new SchoolEntities());
-            _uploadBusinessService = new UploadBusinessService(_storageRepsitory, _excelReader, _unitOfWork);
+            _uploadBusinessService = new UploadBusinessService(_excelReader, _unitOfWork,_fileStoreProxy);
         }
 
 

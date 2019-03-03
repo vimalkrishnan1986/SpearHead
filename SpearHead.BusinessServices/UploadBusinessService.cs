@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using SpearHead.Common.ExcelReader;
 using SpearHead.Common.Helpers;
 using SpearHead.BusinessServices.Repositories;
 using SpearHead.DataContracts;
 using System.Data;
-using System.Net;
 using System.IO;
 using System.Linq;
 using SpearHead.BusinessServices.Models;
 using SpearHead.Data.Infrastructure;
 using SpearHead.Data.Entities;
 using SpearHead.Data.Repositories;
+using SpearHead.Common.Proxy;
+
+using SpearHead.FileStore.Models;
 
 namespace SpearHead.BusinessServices
 {
     public class UploadBusinessService : IUploadBusinessService
     {
-        private readonly IStorageRepsitory _storageRepsitory;
         private readonly IExcelReader _excelReader;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileStoreProxy _fileStoreProxy;
         const string app_data = "App_Data";
 
         private string GetTemperotyFileName()
@@ -37,9 +38,9 @@ namespace SpearHead.BusinessServices
 
         }
 
-        public UploadBusinessService(IStorageRepsitory storageRepsitory, IExcelReader excelReader, IUnitOfWork unitOfWork)
+        public UploadBusinessService(IExcelReader excelReader, IUnitOfWork unitOfWork, IFileStoreProxy fileStoreProxy)
         {
-            _storageRepsitory = storageRepsitory ?? throw new ArgumentNullException(nameof(storageRepsitory));
+            _fileStoreProxy = fileStoreProxy ?? throw new ArgumentNullException(nameof(fileStoreProxy));
             _excelReader = excelReader ?? throw new ArgumentNullException(nameof(excelReader));
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
@@ -60,11 +61,21 @@ namespace SpearHead.BusinessServices
                 FileHelper.Delete(tempFileName);
                 return validationResults;
             }
-            if (!await _storageRepsitory.Move(tempFileName))
-            {
-                throw new OperationCanceledException("Could not copy the files");
-            }
 
+            var uploadStatus = await _fileStoreProxy.Post(new FileModel
+            {
+                Name = model.Name,
+                FileBytes = model.Content
+            });
+
+            if (!uploadStatus.IsSuccessStatusCode)
+            {
+                return new ExcelUploadResponseModel(new List<ErrorMessageModel>()
+                { new ErrorMessageModel(0) { ErrorMessagees = new List<string>() { "Unable to upload the file to storage" }
+                }
+                }
+                );
+            }
             return new ExcelUploadResponseModel(null);
         }
 
