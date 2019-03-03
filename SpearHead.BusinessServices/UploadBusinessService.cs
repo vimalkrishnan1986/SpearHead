@@ -56,9 +56,9 @@ namespace SpearHead.BusinessServices
 
             var dataTable = await _excelReader.ReadFromExcel(tempFileName);
             var validationResults = ApplyValidation(dataTable);
+            FileHelper.Delete(tempFileName);
             if (validationResults.HttpStatusCode != StatusCodes.Sucess)
             {
-                FileHelper.Delete(tempFileName);
                 return validationResults;
             }
 
