@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SpearHead.Common.ExcelReader;
-using SpearHead.Common.Helpers;
-using SpearHead.BusinessServices.Repositories;
-using SpearHead.DataContracts;
 using System.Data;
 using System.IO;
 using System.Linq;
+using SpearHead.FileStore.Models;
 using SpearHead.BusinessServices.Models;
 using SpearHead.Data.Infrastructure;
 using SpearHead.Data.Entities;
 using SpearHead.Data.Repositories;
 using SpearHead.Common.Proxy;
-
-using SpearHead.FileStore.Models;
+using SpearHead.Common.ExcelReader;
+using SpearHead.Common.Helpers;
+using SpearHead.DataContracts;
 
 namespace SpearHead.BusinessServices
 {
@@ -56,12 +54,14 @@ namespace SpearHead.BusinessServices
 
             var dataTable = await _excelReader.ReadFromExcel(tempFileName);
             var validationResults = ApplyValidation(dataTable);
-            FileHelper.Delete(tempFileName);
+
             if (validationResults.HttpStatusCode != StatusCodes.Sucess)
             {
+                FileHelper.Delete(tempFileName);
                 return validationResults;
             }
 
+            //this is not a recoomended  approch, instead use scheduler based approach to push the files into file store
             var uploadStatus = await _fileStoreProxy.Post(new FileModel
             {
                 Name = model.Name,
