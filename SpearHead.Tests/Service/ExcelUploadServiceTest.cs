@@ -68,7 +68,7 @@ namespace SpearHead.Tests.Service
         }
 
         [TestMethod]
-        [ExpectedException(typeof(FaultException))]
+        [ExpectedException(typeof(FaultException<FaultModel>))]
         public async Task ExcelUploadServiceTest_Upload_Exception()
         {
             // Assemble
