@@ -12,20 +12,14 @@ using SpearHead.Common.Proxy;
 namespace SpearHead.Contracts.Implementation
 {
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerSession)]
-    public sealed class ExcelUploadService : IExcelUploadServicecs
+    public sealed class ExcelUploadService : IExcelUploadService
     {
         private readonly IUploadBusinessService _businessService;
-        private readonly IExcelReader _excelReader;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IFileStoreProxy _fileStoreProxy;
-        
 
-        public ExcelUploadService()
+
+        public ExcelUploadService(IUploadBusinessService uploadBusinessService)
         {
-            _excelReader = Activator.CreateInstance<OleDbExcelReader>();
-            _unitOfWork = new UnitOfWork(new SchoolEntities());
-            _fileStoreProxy = Activator.CreateInstance<FileStoreProxy>();
-            _businessService = new UploadBusinessService(_excelReader, _unitOfWork,_fileStoreProxy);
+            _businessService = uploadBusinessService ?? throw new ArgumentNullException(nameof(uploadBusinessService));
         }
 
         public async Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model)

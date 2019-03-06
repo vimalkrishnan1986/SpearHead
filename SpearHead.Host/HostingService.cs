@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ninject;
+using Ninject.Extensions.Wcf.SelfHost;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -7,6 +9,13 @@ using System.Reflection;
 using System.ServiceModel;
 using System.ServiceModel.Configuration;
 using System.ServiceProcess;
+using SpearHead.Contracts;
+using SpearHead.Contracts.Implementation;
+using SpearHead.Host.NinjectModules;
+using Ninject.Modules;
+using Ninject.Extensions.Wcf;
+using SpearHead.ServiceContracts;
+using Ninject.Web.Common.SelfHost;
 
 namespace SpearHead.Host
 {
@@ -14,24 +23,29 @@ namespace SpearHead.Host
     {
         #region Privare Valriables
         private readonly object _lockObject = new object();
-        private List<ServiceHost> Services = new List<ServiceHost>();
+        private static List<Assembly> assemblies = new List<Assembly>();
         #endregion
 
         #region Internal Variables
         internal List<Type> ServiceTypes = new List<Type>();
         #endregion
 
+
+        private static IKernel CreateKernel()
+        {
+            IKernel kernel = new StandardKernel(new INinjectModule[] {
+                    new ServiceModule(),new DataModule(),new BusinessModule()
+                     });
+            kernel.Load(assemblies.ToArray());
+            return kernel;
+        }
+
         public HostingService()
         {
             InitializeComponent();
             var currentDomain = AppDomain.CurrentDomain;
             currentDomain.TypeResolve += new ResolveEventHandler(CurrentDomain_TypeResolve);
-            ServiceModelSectionGroup mssg = ServiceModelSectionGroup.GetSectionGroup(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None));
-            foreach (ServiceElement service in mssg.Services.Services)
-            {
-                var serviceType = Type.GetType(service.Name, true, true);
-                ServiceTypes.Add(serviceType);
-            }
+
         }
 
         internal void InternalStart()
@@ -52,41 +66,21 @@ namespace SpearHead.Host
 
         protected override void OnStop()
         {
-            Services.ForEach(thishost =>
-            {
-                if (IsListening(thishost))
-                {
-
-                    thishost.Close();
-                }
-
-            });
         }
 
         #region Private Methods
-        private bool IsListening(ICommunicationObject serviceHost)
-        {
-
-            if (serviceHost == null)
-            {
-                return false;
-            }
-            return serviceHost.State == CommunicationState.Opened || serviceHost.State == CommunicationState.Opening;
-        }
         private void StartService()
         {
             lock (_lockObject)
             {
-                ServiceTypes.ForEach(type =>
-                {
-                    var service = new ServiceHost(type);
-                    Services.Add(service);
-                    Console.WriteLine(string.Format("Opening the Service {0}\n", service.BaseAddresses.SingleOrDefault()));
-                    service.Open();
-                }
-
-                 );
+                var uplodService = NinjectWcfConfiguration.Create<ExcelUploadService, NinjectServiceSelfHostFactory>();
+                var selfHost = new NinjectSelfHostBootstrapper(
+                CreateKernel,
+                uplodService);
+                Console.Write($"Starting the service {uplodService.BaseAddresses.SingleOrDefault()}");
+                selfHost.Start();
             }
+
         }
         private void Log(Exception ex)
         {
@@ -96,6 +90,8 @@ namespace SpearHead.Host
         #endregion
 
         #region Static methods
+
+
         static Assembly CurrentDomain_TypeResolve(object sender, ResolveEventArgs args)
         {
             string[] files = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.dll");
@@ -105,6 +101,7 @@ namespace SpearHead.Host
                 try
                 {
                     loadedAssembly = Assembly.LoadFrom(fileName);
+                    assemblies.Add(loadedAssembly);
                     var loadedTypes = loadedAssembly.GetExportedTypes();
                     foreach (var type in loadedTypes)
                     {
