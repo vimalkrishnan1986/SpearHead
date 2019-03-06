@@ -44,7 +44,7 @@ namespace DotCorePoc.Presentation
         {
             try
             {
-                using (ExcelUploadServicecsClient uploadServicecsClient = new ExcelUploadServicecsClient())
+                using (ExcelUploadServiceClient uploadServicecsClient = new ExcelUploadServiceClient())
                 {
                     var res = uploadServicecsClient.UploadAsync(new ExcelUploadModel() { Name = "est", Content = files }).Result;
 

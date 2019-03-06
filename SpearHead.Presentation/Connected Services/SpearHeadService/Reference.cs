@@ -272,41 +272,41 @@ namespace SpearHead.Presentation.SpearHeadService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SpearHeadService.IExcelUploadServicecs")]
-    public interface IExcelUploadServicecs {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SpearHeadService.IExcelUploadService")]
+    public interface IExcelUploadService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IExcelUploadServicecs/Upload", ReplyAction="http://tempuri.org/IExcelUploadServicecs/UploadResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(SpearHead.Presentation.SpearHeadService.FaultModel), Action="http://tempuri.org/IExcelUploadServicecs/UploadFaultModelFault", Name="FaultModel", Namespace="http://schemas.datacontract.org/2004/07/SpearHead.DataContracts")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IExcelUploadService/Upload", ReplyAction="http://tempuri.org/IExcelUploadService/UploadResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(SpearHead.Presentation.SpearHeadService.FaultModel), Action="http://tempuri.org/IExcelUploadService/UploadFaultModelFault", Name="FaultModel", Namespace="http://schemas.datacontract.org/2004/07/SpearHead.DataContracts")]
         SpearHead.Presentation.SpearHeadService.ExcelUploadResponseModel Upload(SpearHead.Presentation.SpearHeadService.ExcelUploadModel model);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IExcelUploadServicecs/Upload", ReplyAction="http://tempuri.org/IExcelUploadServicecs/UploadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IExcelUploadService/Upload", ReplyAction="http://tempuri.org/IExcelUploadService/UploadResponse")]
         System.Threading.Tasks.Task<SpearHead.Presentation.SpearHeadService.ExcelUploadResponseModel> UploadAsync(SpearHead.Presentation.SpearHeadService.ExcelUploadModel model);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IExcelUploadServicecsChannel : SpearHead.Presentation.SpearHeadService.IExcelUploadServicecs, System.ServiceModel.IClientChannel {
+    public interface IExcelUploadServiceChannel : SpearHead.Presentation.SpearHeadService.IExcelUploadService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ExcelUploadServicecsClient : System.ServiceModel.ClientBase<SpearHead.Presentation.SpearHeadService.IExcelUploadServicecs>, SpearHead.Presentation.SpearHeadService.IExcelUploadServicecs {
+    public partial class ExcelUploadServiceClient : System.ServiceModel.ClientBase<SpearHead.Presentation.SpearHeadService.IExcelUploadService>, SpearHead.Presentation.SpearHeadService.IExcelUploadService {
         
-        public ExcelUploadServicecsClient() {
+        public ExcelUploadServiceClient() {
         }
         
-        public ExcelUploadServicecsClient(string endpointConfigurationName) : 
+        public ExcelUploadServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public ExcelUploadServicecsClient(string endpointConfigurationName, string remoteAddress) : 
+        public ExcelUploadServiceClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ExcelUploadServicecsClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public ExcelUploadServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public ExcelUploadServicecsClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public ExcelUploadServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
