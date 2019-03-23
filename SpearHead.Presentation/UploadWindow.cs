@@ -25,7 +25,7 @@ namespace DotCorePoc.Presentation
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "Excel Worksheets|*.xlsx",
+                //Filter = "Excel Worksheets|*.xlsx",
                 CheckFileExists = true,
                 CheckPathExists = true
             };

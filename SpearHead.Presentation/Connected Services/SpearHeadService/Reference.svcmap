@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1b23039d-b524-4db7-8c3c-9eb58fea2598" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2dc55e47-b9a8-4cfe-9b8e-982217cf8f71" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,12 +22,12 @@
     <MetadataSource Address="http://localhost/Services/ExcelUploadService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ExcelUploadService.xsd" MetadataType="Schema" ID="cdb57001-7ba8-4059-9550-ef1d16b1237a" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd0" />
-    <MetadataFile FileName="ExcelUploadService1.xsd" MetadataType="Schema" ID="22faa123-ee0e-4774-8b8b-bdc28fdec56e" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd3" />
-    <MetadataFile FileName="ExcelUploadService2.xsd" MetadataType="Schema" ID="2dc20fd1-0ebe-4573-8ec8-9aa4c8f35acf" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd2" />
-    <MetadataFile FileName="ExcelUploadService3.xsd" MetadataType="Schema" ID="bf148d35-f55b-4800-b048-2a1713758db7" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd4" />
-    <MetadataFile FileName="ExcelUploadService.wsdl" MetadataType="Wsdl" ID="6f0e86ee-edef-41eb-a6b6-89da3fca03ee" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?wsdl" />
-    <MetadataFile FileName="ExcelUploadService4.xsd" MetadataType="Schema" ID="0f11937f-4094-4584-94bd-e126c58378a9" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd1" />
+    <MetadataFile FileName="ExcelUploadService.xsd" MetadataType="Schema" ID="4a2544f2-d5e2-4d62-82d4-c8141a780a53" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd0" />
+    <MetadataFile FileName="ExcelUploadService1.xsd" MetadataType="Schema" ID="61b06795-730a-4645-8a74-ced31fdb1703" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd3" />
+    <MetadataFile FileName="ExcelUploadService2.xsd" MetadataType="Schema" ID="3789124c-e99a-4910-bee7-0919de70754f" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd2" />
+    <MetadataFile FileName="ExcelUploadService3.xsd" MetadataType="Schema" ID="6e1a4922-c43d-4bbc-b83f-1155ce4a264c" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd4" />
+    <MetadataFile FileName="ExcelUploadService.wsdl" MetadataType="Wsdl" ID="24553ca5-47fe-4c8b-9347-2ce29bd5d39c" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?wsdl" />
+    <MetadataFile FileName="ExcelUploadService4.xsd" MetadataType="Schema" ID="f3fae375-10f8-4076-809b-27e69034aaa8" SourceId="1" SourceUrl="http://localhost/Services/ExcelUploadService?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
