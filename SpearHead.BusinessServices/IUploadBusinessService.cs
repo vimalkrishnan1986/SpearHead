@@ -10,5 +10,7 @@ namespace SpearHead.BusinessServices
     public interface IUploadBusinessService
     {
         Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model);
+
+        Task<ExcelUploadResponseModel> Validate(ExcelUploadModel model);
     }
 }

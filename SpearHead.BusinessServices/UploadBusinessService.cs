@@ -44,15 +44,19 @@ namespace SpearHead.BusinessServices
 
         }
 
-        public async Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model)
+        private async Task<DataTable> GetExcelTable(ExcelUploadModel model, string tempFileName)
         {
-            string tempFileName = GetTemperotyFileName();
+
             //saving to temprory file;
             FileHelper.CreateDirectory(app_data);
             FileHelper.WriteToFile(model.Content, tempFileName);
             //performing the validation
-
-            var dataTable = await _excelReader.ReadFromExcel(tempFileName);
+            return await _excelReader.ReadFromExcel(tempFileName);
+        }
+        public async Task<ExcelUploadResponseModel> Upload(ExcelUploadModel model)
+        {
+            string tempFileName = GetTemperotyFileName();
+            var dataTable = await GetExcelTable(model, tempFileName);
             var validationResults = ApplyValidation(dataTable);
 
             if (validationResults.HttpStatusCode != StatusCodes.Sucess)
@@ -164,5 +168,75 @@ namespace SpearHead.BusinessServices
             //save functionality here 
 
         }
+
+        public async Task<ExcelUploadResponseModel> Validate(ExcelUploadModel model)
+        {
+            string tempFileName = GetTemperotyFileName();
+            var dataTable = await GetExcelTable(model, tempFileName);
+
+            List<ErrorMessageModel> errorMessageModels = new List<ErrorMessageModel>();
+
+            if (dataTable == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            // performing the validation here
+
+            if (dataTable.Rows.Count == 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            List<SallaryModel> sallaryModel = dataTable.ToListof<SallaryModel>();
+
+
+            List<Predicate<SallaryModel>> rules = new List<Predicate<SallaryModel>>()
+            {
+                //age group 20 sallary should be greater than 50
+
+               (m) =>
+                       {
+                            if (m.Age == 20 && m.Sallary < 50000)
+                           {
+                               errorMessageModels.Add(new ErrorMessageModel(m.No)
+                               {
+                                   ErrorMessagees = new List<string>()
+                                   {
+                                "For age group 20 , minilum sallry would be 50000 "
+                                   }
+                               });
+                               return true;
+                           };
+
+                           return false;
+                       },
+
+               // age group 22 and 23 sallry should not be greater than 50000;
+                 (m) =>
+                   {
+                       if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
+                       {
+                           errorMessageModels.Add(new ErrorMessageModel(m.No)
+                           {
+                               ErrorMessagees = new List<string>()
+                                   {
+                                "For age group 20 , minilum sallry should be less than 5000"
+                                   }
+                           });
+                           return true;
+                       };
+
+                        return false;
+                   }
+            };
+
+            foreach (var rule in rules)
+            {
+                sallaryModel.RemoveAll(rule);
+            }
+            return new ExcelUploadResponseModel(errorMessageModels);
+        }
+
     }
 }

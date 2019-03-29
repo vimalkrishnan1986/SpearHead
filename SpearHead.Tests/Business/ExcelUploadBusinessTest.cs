@@ -33,7 +33,7 @@ namespace SpearHead.Tests.Business
             _fileStoreProxy = new FileStoreProxy();
             _excelReader = new OleDbExcelReader();
             _unitOfWork = new UnitOfWork(new SchoolEntities());
-            _uploadBusinessService = new UploadBusinessService(_excelReader, _unitOfWork,_fileStoreProxy);
+            _uploadBusinessService = new UploadBusinessService(_excelReader, _unitOfWork, _fileStoreProxy);
         }
 
 
@@ -52,6 +52,27 @@ namespace SpearHead.Tests.Business
             res.Should().NotBeNull();
             res.HttpStatusCode.Should().Be(StatusCodes.Sucess);
 
+
+        }
+
+
+
+        [TestMethod]
+        public async Task ExcelUploadBusinessTest_ValidateFile_Sucess()
+        {
+
+            var model = new ExcelUploadModel()
+            {
+                Name = "test",
+                Content = FileHelper.ReadBytes($"{baseLocation}//Sample Excel_valid.xlsx")
+            };
+
+
+            var res = await _uploadBusinessService.Validate(model);
+            res.Should().NotBeNull();
+            res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
+            var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2));
+            var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4));
 
         }
 
