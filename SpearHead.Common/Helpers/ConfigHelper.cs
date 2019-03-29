@@ -17,6 +17,7 @@ namespace SpearHead.Common.Helpers
             return (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(ConfigurationManager.AppSettings[key]);
         }
 
+
         public static string GetConnectionString(string key)
         {
             var configuration = ConfigurationManager.ConnectionStrings[key];

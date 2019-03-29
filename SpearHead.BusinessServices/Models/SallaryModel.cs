@@ -8,8 +8,8 @@ namespace SpearHead.BusinessServices.Models
 {
     public class SallaryModel
     {
-        public int No { get; set; }
-        public int Age { get; set; }
+        public double No { get; set; }
+        public double Age { get; set; }
         public double Sallary { get; set; }
     }
 }

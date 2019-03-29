@@ -19,7 +19,7 @@ namespace SpearHead.Common.ExcelReader
             get
             {
                 return $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + _filePath +
-                    "';Extended Properties=\"Excel 12.0;HDR=YES;\"";
+                    "';Extended Properties=\"Excel 12.0;HDR=YES;IMEX=1\"";
 
             }
         }

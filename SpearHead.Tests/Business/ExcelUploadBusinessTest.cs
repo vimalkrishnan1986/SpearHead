@@ -71,8 +71,8 @@ namespace SpearHead.Tests.Business
             var res = await _uploadBusinessService.Validate(model);
             res.Should().NotBeNull();
             res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
-            var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2));
-            var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4));
+            var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2)).Should().NotBeNull();
+            var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4)).Should().NotBeNull();
 
         }
 

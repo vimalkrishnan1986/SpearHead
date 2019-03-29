@@ -199,7 +199,7 @@ namespace SpearHead.BusinessServices
                        {
                             if (m.Age == 20 && m.Sallary < 50000)
                            {
-                               errorMessageModels.Add(new ErrorMessageModel(m.No)
+                               errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
                                {
                                    ErrorMessagees = new List<string>()
                                    {
@@ -217,7 +217,7 @@ namespace SpearHead.BusinessServices
                    {
                        if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
                        {
-                           errorMessageModels.Add(new ErrorMessageModel(m.No)
+                          errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
                            {
                                ErrorMessagees = new List<string>()
                                    {
@@ -235,7 +235,13 @@ namespace SpearHead.BusinessServices
             {
                 sallaryModel.RemoveAll(rule);
             }
-            return new ExcelUploadResponseModel(errorMessageModels);
+
+            if (errorMessageModels.Count() > 0)
+            {
+                return new ExcelUploadResponseModel(errorMessageModels);
+            }
+
+            return new ExcelUploadResponseModel(null);
         }
 
     }
