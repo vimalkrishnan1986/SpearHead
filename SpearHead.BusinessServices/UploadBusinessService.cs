@@ -13,6 +13,9 @@ using SpearHead.Common.Proxy;
 using SpearHead.Common.ExcelReader;
 using SpearHead.Common.Helpers;
 using SpearHead.DataContracts;
+using System.Activities;
+using SpearHead.BusinessServices.Workflows;
+using System.Threading;
 
 namespace SpearHead.BusinessServices
 {
@@ -191,57 +194,69 @@ namespace SpearHead.BusinessServices
             List<SallaryModel> sallaryModel = dataTable.ToListof<SallaryModel>();
 
 
-            List<Predicate<SallaryModel>> rules = new List<Predicate<SallaryModel>>()
+            //List<Predicate<SallaryModel>> rules = new List<Predicate<SallaryModel>>()
+            //{
+            //    //age group 20 sallary should be greater than 50
+
+            //   (m) =>
+            //           {
+            //                if (m.Age == 20 && m.Sallary < 50000)
+            //               {
+            //                   errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
+            //                   {
+            //                       ErrorMessagees = new List<string>()
+            //                       {
+            //                    "For age group 20 , minilum sallry would be 50000 "
+            //                       }
+            //                   });
+            //                   return true;
+            //               };
+
+            //               return false;
+            //           },
+
+            //   // age group 22 and 23 sallry should not be greater than 50000;
+            //     (m) =>
+            //       {
+            //           if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
+            //           {
+            //              errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
+            //               {
+            //                   ErrorMessagees = new List<string>()
+            //                       {
+            //                    "For age group 20 , minilum sallry should be less than 5000"
+            //                       }
+            //               });
+            //               return true;
+            //           };
+
+            //            return false;
+            //       }
+            //};
+
+            //foreach (var rule in rules)
+            //{
+            //    sallaryModel.RemoveAll(rule);
+            //}
+
+            try
             {
-                //age group 20 sallary should be greater than 50
 
-               (m) =>
-                       {
-                            if (m.Age == 20 && m.Sallary < 50000)
-                           {
-                               errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
-                               {
-                                   ErrorMessagees = new List<string>()
-                                   {
-                                "For age group 20 , minilum sallry would be 50000 "
-                                   }
-                               });
-                               return true;
-                           };
+                WorkflowInvoker workflowInvoker = new WorkflowInvoker(new ValidationSample());
+                IDictionary<string, object> arguments = new Dictionary<string, object>();
+                arguments.Add("InputList", sallaryModel);
+                var output = workflowInvoker.Invoke(arguments);
+                Thread.Sleep(1000);
+                var excelUploadResponseModel = output["ResponseList"] as ExcelUploadResponseModel;
 
-                           return false;
-                       },
 
-               // age group 22 and 23 sallry should not be greater than 50000;
-                 (m) =>
-                   {
-                       if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
-                       {
-                          errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
-                           {
-                               ErrorMessagees = new List<string>()
-                                   {
-                                "For age group 20 , minilum sallry should be less than 5000"
-                                   }
-                           });
-                           return true;
-                       };
-
-                        return false;
-                   }
-            };
-
-            foreach (var rule in rules)
-            {
-                sallaryModel.RemoveAll(rule);
+                return excelUploadResponseModel;
             }
-
-            if (errorMessageModels.Count() > 0)
+            catch (Exception ex)
             {
-                return new ExcelUploadResponseModel(errorMessageModels);
-            }
 
-            return new ExcelUploadResponseModel(null);
+                throw ex;
+            }
         }
 
     }
