@@ -262,13 +262,13 @@ namespace SpearHead.BusinessServices
                 throw new IndexOutOfRangeException();
             }
 
-            List<SallaryModel> sallaryModel = dataTable.ToListof<SallaryModel>();
+
             try
             {
 
                 WorkflowInvoker workflowInvoker = new WorkflowInvoker(new ValidationSample());
                 IDictionary<string, object> arguments = new Dictionary<string, object>();
-                arguments.Add("InputList", sallaryModel);
+                arguments.Add("InputTable", dataTable);
                 var output = workflowInvoker.Invoke(arguments);
                 Thread.Sleep(1000);
                 var excelUploadResponseModel = output["ResponseList"] as ExcelUploadResponseModel;
