@@ -172,7 +172,78 @@ namespace SpearHead.BusinessServices
 
         }
 
-        public async Task<ExcelUploadResponseModel> Validate(ExcelUploadModel model)
+        public async Task<ExcelUploadResponseModelV1<SallaryModel>> Validate(ExcelUploadModel model)
+        {
+            string tempFileName = GetTemperotyFileName();
+            var dataTable = await GetExcelTable(model, tempFileName);
+
+            List<ErrorMessageModelV1<SallaryModel>> errorMessageModels = new List<ErrorMessageModelV1<SallaryModel>>();
+
+            if (dataTable == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            // performing the validation here
+
+            if (dataTable.Rows.Count == 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            List<SallaryModel> sallaryModel = dataTable.ToListof<SallaryModel>();
+
+
+            List<Predicate<SallaryModel>> rules = new List<Predicate<SallaryModel>>()
+            {
+                //age group 20 sallary should be greater than 50
+
+               (m) =>
+                       {
+                            if (m.Age == 20 && m.Sallary < 50000)
+                           {
+
+                               errorMessageModels.Add(new ErrorMessageModelV1<SallaryModel>(Convert.ToInt32(m.No),m)
+                               {
+                                   ErrorMessages = new List<string>()
+                                   {
+                                "For age group 20 , minilum sallry would be 50000 "
+                                   }
+                               });
+                               return true;
+                           };
+
+                           return false;
+                       },
+
+               // age group 22 and 23 sallry should not be greater than 50000;
+                 (m) =>
+                   {
+                       if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
+                       {
+                          errorMessageModels.Add(new ErrorMessageModelV1<SallaryModel>(Convert.ToInt32(m.No),m)
+                           {
+                               ErrorMessages = new List<string>()
+                                   {
+                                "For age group 20 , minilum sallry should be less than 5000"
+                                   }
+                           });
+                           return true;
+                       };
+
+                        return false;
+                   }
+            };
+
+            foreach (var rule in rules)
+            {
+                sallaryModel.RemoveAll(rule);
+            }
+
+            return new ExcelUploadResponseModelV1<SallaryModel>(errorMessageModels);
+        }
+
+        public async Task<ExcelUploadResponseModel> Validate_Workflow(ExcelUploadModel model)
         {
             string tempFileName = GetTemperotyFileName();
             var dataTable = await GetExcelTable(model, tempFileName);
@@ -192,53 +263,6 @@ namespace SpearHead.BusinessServices
             }
 
             List<SallaryModel> sallaryModel = dataTable.ToListof<SallaryModel>();
-
-
-            //List<Predicate<SallaryModel>> rules = new List<Predicate<SallaryModel>>()
-            //{
-            //    //age group 20 sallary should be greater than 50
-
-            //   (m) =>
-            //           {
-            //                if (m.Age == 20 && m.Sallary < 50000)
-            //               {
-            //                   errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
-            //                   {
-            //                       ErrorMessagees = new List<string>()
-            //                       {
-            //                    "For age group 20 , minilum sallry would be 50000 "
-            //                       }
-            //                   });
-            //                   return true;
-            //               };
-
-            //               return false;
-            //           },
-
-            //   // age group 22 and 23 sallry should not be greater than 50000;
-            //     (m) =>
-            //       {
-            //           if ((m.Age == 22 || m.Age == 23) && m.Sallary > 5000)
-            //           {
-            //              errorMessageModels.Add(new ErrorMessageModel(Convert.ToInt32(m.No))
-            //               {
-            //                   ErrorMessagees = new List<string>()
-            //                       {
-            //                    "For age group 20 , minilum sallry should be less than 5000"
-            //                       }
-            //               });
-            //               return true;
-            //           };
-
-            //            return false;
-            //       }
-            //};
-
-            //foreach (var rule in rules)
-            //{
-            //    sallaryModel.RemoveAll(rule);
-            //}
-
             try
             {
 
@@ -258,6 +282,5 @@ namespace SpearHead.BusinessServices
                 throw ex;
             }
         }
-
     }
 }

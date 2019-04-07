@@ -71,8 +71,36 @@ namespace SpearHead.Tests.Business
             var res = await _uploadBusinessService.Validate(model);
             res.Should().NotBeNull();
             res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
+            var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2));
+            var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4));
+            age20FailedResponse.Should().NotBeNull();
+            age23FailedResponse.Should().NotBeNull();
+
+            age20FailedResponse.Content.Should().NotBeNull();
+            age23FailedResponse.Content.Should().NotBeNull();
+
+            // content will have the vallues
+
+        }
+
+        [TestMethod]
+        public async Task ExcelUploadBusinessTest_ValidateFile_Workflow_Sucess()
+        {
+
+            var model = new ExcelUploadModel()
+            {
+                Name = "test",
+                Content = FileHelper.ReadBytes($"{baseLocation}//Sample Excel_valid.xlsx")
+            };
+
+
+            var res = await _uploadBusinessService.Validate_Workflow(model);
+            res.Should().NotBeNull();
+            res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
             var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2)).Should().NotBeNull();
             var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4)).Should().NotBeNull();
+
+
 
         }
 
