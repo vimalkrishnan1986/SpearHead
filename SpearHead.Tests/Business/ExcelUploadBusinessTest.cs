@@ -72,13 +72,16 @@ namespace SpearHead.Tests.Business
             res.Should().NotBeNull();
             res.HttpStatusCode.Should().Be(StatusCodes.BadRequest);
             var age20FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(2));
+            age20FailedResponse.Content.Row.Should().Be(2);
+
             var age23FailedResponse = res.ErrorMessages.Find(p => p.Row.Equals(4));
             age20FailedResponse.Should().NotBeNull();
             age23FailedResponse.Should().NotBeNull();
 
             age20FailedResponse.Content.Should().NotBeNull();
             age23FailedResponse.Content.Should().NotBeNull();
-
+            age20FailedResponse.Content.Row.Should().Be(2);
+            age23FailedResponse.Content.Row.Should().Be(4);
             // content will have the vallues
 
         }

@@ -74,6 +74,7 @@
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Models\IModelIdentifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\FileStoreProxy.cs" />
     <Compile Include="Proxy\IFileStoreProxy.cs" />
