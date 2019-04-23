@@ -31,22 +31,25 @@ namespace SpearHead.Host
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             this.ServiceProcessInstaller = new System.ServiceProcess.ServiceProcessInstaller();
             this.ServiceInstaller = new System.ServiceProcess.ServiceInstaller();
-
-
+            // 
+            // ServiceProcessInstaller
+            // 
             this.ServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.ServiceProcessInstaller.Password = null;
             this.ServiceProcessInstaller.Username = null;
-            //ServiceInstaller
+            // 
+            // ServiceInstaller
+            // 
             this.ServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            // 
+            // HostingServiceInstaller
+            // 
+            this.Installers.AddRange(new System.Configuration.Install.Installer[] {
+            this.ServiceProcessInstaller,
+            this.ServiceInstaller});
 
-            this.Installers.AddRange(new System.Configuration.Install.Installer[]
-            {
-                this.ServiceProcessInstaller,
-                this.ServiceInstaller
-            });
         }
 
         #endregion

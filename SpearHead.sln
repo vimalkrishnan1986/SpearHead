@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpearHead.Data", "SpearHead
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpearHead.Tests", "SpearHead.Tests\SpearHead.Tests.csproj", "{A11340E4-A60E-48A1-8935-E8354C42277F}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ServiceSetUp", "ServiceSetUp\ServiceSetUp.vdproj", "{313182A3-B149-4E29-8E86-848CCD982B5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,8 @@ Global
 		{A11340E4-A60E-48A1-8935-E8354C42277F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A11340E4-A60E-48A1-8935-E8354C42277F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A11340E4-A60E-48A1-8935-E8354C42277F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{313182A3-B149-4E29-8E86-848CCD982B5D}.Debug|Any CPU.ActiveCfg = Debug
+		{313182A3-B149-4E29-8E86-848CCD982B5D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -153,5 +153,10 @@
       <Name>SpearHead.ServiceContracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HostingServiceInstaller.resx">
+      <DependentUpon>HostingServiceInstaller.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
