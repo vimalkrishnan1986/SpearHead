@@ -42,6 +42,8 @@ namespace SpearHead.Host
             // 
             // ServiceInstaller
             // 
+            this.ServiceInstaller.DisplayName = "Service hosts all the WCF endpoints";
+            this.ServiceInstaller.ServiceName = "SpearHeadHostService";
             this.ServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // HostingServiceInstaller

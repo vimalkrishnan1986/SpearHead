@@ -141,12 +141,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_1F8807B283CA5212594D0CBDE9F90931"
-        "OwnerKey" = "8:_A2CA288F2B304DA1DDD977CE32C21AF6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_1FF8F6B2E4F19305A3533EB72EFD37F5"
         "OwnerKey" = "8:_F07FA504D85A4138AFABCF24A3476D1C"
         "MsmSig" = "8:_UNDEFINED"
@@ -538,12 +532,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D73C28C00364D6BA7F3BDF3D541893E1"
-        "OwnerKey" = "8:_A2CA288F2B304DA1DDD977CE32C21AF6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D73C28C00364D6BA7F3BDF3D541893E1"
         "OwnerKey" = "8:_577435CBF8CE01E7F1EA5FE366AA1FD9"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -640,7 +628,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2C35F41E1E9973C0959740C798617590"
+        "OwnerKey" = "8:_F07FA504D85A4138AFABCF24A3476D1C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -731,18 +719,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_22938120FD4D3E49F9492DA97AF1DDA5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A2CA288F2B304DA1DDD977CE32C21AF6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F07FA504D85A4138AFABCF24A3476D1C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1123,6 +1099,12 @@
         "OwnerKey" = "8:_986C48CA2C797C57318DCB50C85523C7"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2C35F41E1E9973C0959740C798617590"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1131,7 +1113,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\ServiceSetUp.msi"
+        "OutputFilename" = "8:Debug\\SetUp.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1141,13 +1123,21 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\ServiceSetUp.msi"
+        "OutputFilename" = "8:Release\\SetUp.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1157,6 +1147,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -1469,11 +1467,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.DataContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_16A05B1BBC66FEC69CF2A44DD192BFD9"
-                    {
-                    "Name" = "8:SpearHead.DataContracts.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.DataContracts.dll"
             "TargetName" = "8:"
@@ -2027,11 +2020,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_42F909169A85C0CCA4FB782DF3BB1F55"
-                    {
-                    "Name" = "8:SpearHead.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.Data.dll"
             "TargetName" = "8:"
@@ -2244,11 +2232,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.BusinessServices, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_5E9214BB46EF68735C7803517D825BB6"
-                    {
-                    "Name" = "8:SpearHead.BusinessServices.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.BusinessServices.dll"
             "TargetName" = "8:"
@@ -2957,11 +2940,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A2CA288F2B304DA1DDD977CE32C21AF6"
-                    {
-                    "Name" = "8:System.Net.Http.Formatting.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.Formatting.dll"
             "TargetName" = "8:"
@@ -3081,11 +3059,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B37176A0435F13D1DA7204EF1BEB349C"
-                    {
-                    "Name" = "8:SpearHead.Common.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.Common.dll"
             "TargetName" = "8:"
@@ -3143,11 +3116,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.Contracts.Implementation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_C107D72E330812D0F9015A7570B49F31"
-                    {
-                    "Name" = "8:SpearHead.Contracts.Implementation.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.Contracts.Implementation.dll"
             "TargetName" = "8:"
@@ -3422,11 +3390,6 @@
             "AssemblyAsmDisplayName" = "8:SpearHead.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_DE5C9DDCC8E7C9BB86FD74E8909E10CD"
-                    {
-                    "Name" = "8:SpearHead.ServiceContracts.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:SpearHead.ServiceContracts.dll"
             "TargetName" = "8:"
